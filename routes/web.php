@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
+use App\Http\Middleware\EnsureTokenIsValid;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,11 @@ use App\Http\Controllers\MediaController;
 |
 */
 
-Route::view('/home', 'welcome')->name('home');
+Route::view('/home', 'welcome')->name('home')->withoutMiddleware('token');
 
-Route::controller(MediaController::class)->group(function(){
+Route::controller(MediaController::class)
+   ->middleware('token:foo123')    
+   ->group(function(){                        
     Route::get('/media', 'index');
 
     Route::get('/media/{name?}', 'show')->whereAlpha('name');
@@ -25,7 +28,7 @@ Route::controller(MediaController::class)->group(function(){
     Route::get('/media/{id}', 'showById');
 });
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware('token:bar123')->group(function(){
     Route::get('/csrf', function () { 
         return "foo";
     });
@@ -34,3 +37,4 @@ Route::prefix('admin')->group(function(){
         return to_route('home');
     });
 });
+
