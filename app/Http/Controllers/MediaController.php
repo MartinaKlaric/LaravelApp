@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class MediaController
 {
-    public function index(Request $request)
-    {  dd($request->route());
+    public function index()
+    {  
         return ['cd', 'dvd'];  
     }
 
