@@ -9,6 +9,8 @@ use App\Service\MysqlConnectionService;
 use App\Service\MediaAppService;
 use App\Service\AppService;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Response::macro('caps', function(string $value){  //pozivam macro funkciju koju sam nazvala caps
             return Response::make(strtoupper($value));   //a koja će napraviti response tako da value izbaci zapisan velikim slovima
+        });
+
+        View::share('title', 'My App');
+
+        Blade::directive('random', function(){
+            return '<?php echo rand(1, 10); ?>';
         });
     }
 }
