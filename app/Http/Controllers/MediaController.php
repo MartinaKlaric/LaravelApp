@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Providers\AppServiceProvider;
 
 
-class MediaController
+class MediaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {  
-        return ['cd', 'dvd'];  
+        return response()->caps('foo');
     }
 
-    public function show(string $name)
-    {  dd($name);
+    public function show(string $name) 
+    {  
+        dd($name);
     }
 
     public function showById(int $id)
@@ -20,7 +22,13 @@ class MediaController
         dd($id);
     }
 
+    public function store(Request $request)
+    {
+        dd($request->validate(['name'=> ['required']])); 
+    }
+
 }
+
 
 
 

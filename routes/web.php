@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Middleware\EnsureTokenIsValid;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,13 @@ use App\Http\Middleware\EnsureTokenIsValid;
 |
 */
 
-Route::view('/home', 'welcome')->name('home')->withoutMiddleware('token');
+// Route::view('/home', 'welcome', ['title' => 'WelcomePage'])
+//           ->name('home')
+//           ->withoutMiddleware('token');
+
+Route::get('/home', function(){
+    return view('welcome', ['title' => 'Welcome Page']);
+})->name('home')->withoutMiddleware('token');
 
 Route::controller(MediaController::class)
    ->middleware('token:foo123')    
@@ -27,6 +35,14 @@ Route::controller(MediaController::class)
     
     Route::get('/media/{id}', 'showById');
 });
+
+Route::apiResource('movie', MovieController::class);
+
+Route::get('/foo', function(){
+    return [1, 2, 3];
+});
+
+Route::resource('member', MemberController::class)->except(['store', 'edit']);
 
 Route::prefix('admin')->middleware('token:bar123')->group(function(){
     Route::get('/csrf', function () { 

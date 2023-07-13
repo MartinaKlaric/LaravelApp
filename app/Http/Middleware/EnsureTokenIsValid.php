@@ -15,6 +15,10 @@ class EnsureTokenIsValid
      */
     public function handle(Request $request, Closure $next, string $tokenValue): Response
     {
+        if ($request->isMethod('get')){
+            return $next($request);
+        }
+        
         if ($request->input('token') !== $tokenValue){ 
             return redirect()->route('home'); 
         }

@@ -8,6 +8,7 @@ use App\Service\ConnectionService;
 use App\Service\MysqlConnectionService;
 use App\Service\MediaAppService;
 use App\Service\AppService;
+use Illuminate\Support\Facades\Response;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Response::macro('caps', function(string $value){  //pozivam macro funkciju koju sam nazvala caps
+            return Response::make(strtoupper($value));   //a koja će napraviti response tako da value izbaci zapisan velikim slovima
+        });
     }
 }
