@@ -13,7 +13,9 @@
     <div class="container flex justify-center mt-16">
         <form action="{{ route('media.store') }}" method="post">
             @csrf
-            <x-form.input type="text" :name="$name" class="border"/>
+            <x-form.input type="text" class="border"/> 
+            <x-form.input type="number"/> 
+            <x-form.input type="date"/> 
             @error('name')
                 <p class="is-invalid"> {{ $message }}</p>
             @enderror

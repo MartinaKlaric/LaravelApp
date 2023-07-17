@@ -26,6 +26,7 @@ class MediaController extends Controller
     public function create()
     {
         return view('media.create');
+
     }
 
     public function store(StoreMediaRequest $request)
