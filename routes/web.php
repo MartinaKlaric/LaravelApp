@@ -6,6 +6,8 @@ use App\Http\Controllers\MediaController;
 use App\Http\Middleware\EnsureTokenIsValid;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\GenreController;
+//use App\Http\Requests\StoreMediaRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,31 +24,29 @@ use App\Http\Controllers\MemberController;
 //           ->name('home')
 //           ->withoutMiddleware('token');
 
-Route::get('/home', function(){
-    return view('welcome', ['title' => 'Welcome Page']);
-})->name('home')->withoutMiddleware('token');
+Route::view('/home', 'welcome', ['title' => 'Welcome Page'])
+    ->name('home')
+    ->withoutMiddleware('token');
 
-Route::controller(MediaController::class)
-   ->middleware('token:foo123')    
-   ->group(function(){                        
-    Route::get('/media', 'index');
+Route::get('/genre', GenreController::class);
 
-    Route::get('/media/{name?}', 'show')->whereAlpha('name');
-    
-    Route::get('/media/{id}', 'showById');
-});
+Route::resources([
+    'movie' => MovieController::class,
+    'media' => MediaController::class
+]);
 
-Route::apiResource('movie', MovieController::class);
+Route::resource('member', MemberController::class)
+    ->except(['store', 'edit'])
+    ->parameter('member', 'id');
 
 Route::get('/foo', function(){
     return [1, 2, 3];
 });
 
-Route::resource('member', MemberController::class)->except(['store', 'edit']);
-
-Route::prefix('admin')->middleware('token:bar123')->group(function(){
-    Route::get('/csrf', function () { 
-        return "foo";
+Route::prefix('admin')->group(function(){
+    Route::get('/csrf', function(Request $request){
+        dd($request);
+        return 'foo';
     });
     
     Route::get('/redirect', function(){

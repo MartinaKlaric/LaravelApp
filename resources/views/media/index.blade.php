@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediji</title>
-</head>
-<body>
+@extends('app')
+
+@section('style')
+     <style>
+         .my-background{
+            background-color:pink;
+         }
+     </style>
+@endsection
+
+@section('content')
+<div class="container flex justify-center my-background">
+   <div class="mt-16">
     <h1>{{ $title }}</h1>
 
     @isset($data)    
@@ -19,7 +24,8 @@
     <p>Random value is @random </p>
 
     {{date('d.m.Y', time())}}
-</body>
-</html>
+
+@endsection
+
 
 
