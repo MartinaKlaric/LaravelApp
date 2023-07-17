@@ -1,21 +1,20 @@
-@extends('app')
+<x-layout.app>
+    <x-slot:style>
+         <style>
+            .border {
+                border: 3px solid red;
+            }
+         </style>
+    </x-slot:style>
 
-@section('style')
-    <style>
-        .border {
-            border: 1px solid black;
-            padding: 1px;
-        }
-    </style>
-@endsection
+    <x-slot:title>
+         <title>Mediji</title>
+    </x-slot:title>
 
-@section('content')
     <div class="container flex justify-center mt-16">
         <form action="{{ route('media.store') }}" method="post">
             @csrf
             <x-form.input type="text" class="border"/> 
-            <x-form.input type="number"/> 
-            <x-form.input type="date"/> 
             @error('name')
                 <p class="is-invalid"> {{ $message }}</p>
             @enderror
@@ -23,4 +22,4 @@
             <input type="submit" value="Create" class="button">
         </form>
     </div>
-@endsection
+</x-layout.app>
