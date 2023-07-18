@@ -1,13 +1,10 @@
 <?php
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MediaController;
-use App\Http\Middleware\EnsureTokenIsValid;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\GenreController;
-//use App\Http\Requests\StoreMediaRequest;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +16,7 @@ use App\Http\Controllers\GenreController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::view('/home', 'welcome', ['title' => 'WelcomePage'])
-//           ->name('home')
-//           ->withoutMiddleware('token');
-
-Route::view('/home', 'welcome', ['title' => 'Welcome Page'])
+Route::view('/homepage', 'welcome', ['title' => 'Welcome Page'])
     ->name('home')
     ->withoutMiddleware('token');
 
@@ -43,14 +35,18 @@ Route::get('/foo', function(){
     return [1, 2, 3];
 });
 
-Route::prefix('admin')->group(function(){
-    Route::get('/csrf', function(Request $request){
-        dd($request);
-        return 'foo';
-    });
-    
-    Route::get('/redirect', function(){
-        return to_route('home');
-    });
+Route::get('/', function () {
+    return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

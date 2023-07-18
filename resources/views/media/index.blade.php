@@ -1,31 +1,38 @@
-@extends('app')
+<x-app-layout>
+    <div class="container flex justify-center my-background">
+        <div class="mt-16">
+            <h1>{{ $title }}</h1>
 
-@section('style')
-     <style>
-         .my-background{
-            background-color:pink;
-         }
-     </style>
-@endsection
+            @isset($data)
+                @forelse ($data as $media)
+                    <p>{{ $media }}</p>
+                @empty
+                    <p>No data!</p>
+                @endforelse
+            @endisset
 
-@section('content')
-<div class="container flex justify-center my-background">
-   <div class="mt-16">
-    <h1>{{ $title }}</h1>
+            @php
+                $i = 0;
+            @endphp
 
-    @isset($data)    
-       @forelse ($data as $media) 
-          <p>{{ $media }}</p> 
-       @empty
-          <p>No data!</p>  
-       @endforelse                
-    @endisset
+            @for(; $i < 10; $i++)
+                <p>Current value is {{ $i }}</p>
+            @endfor
 
-    <p>Random value is @random </p>
+            @while($randValue = rand(1, 10) > 5)
+                <p>Still going! Random value was {{ $randValue }}</p>
+            @endwhile
 
-    {{date('d.m.Y', time())}}
+            <p>Random value is @random</p>
 
-@endsection
+            <!-- Comment -->
+            {{-- Blade comment --}}
+
+            {{ date('Y-m-d', time()) }}
+        </div>
+    </div>
+
+</x-app-layout>
 
 
 
