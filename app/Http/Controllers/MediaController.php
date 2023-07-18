@@ -24,7 +24,7 @@ class MediaController extends Controller
 
     public function show(string $name)
     {
-        Gate::authorize('show');
+        Gate::authorize('show-media');
         dd($name);
     }
 

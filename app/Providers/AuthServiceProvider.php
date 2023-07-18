@@ -35,5 +35,7 @@ class AuthServiceProvider extends ServiceProvider
             return $isAdmin ? Response::allow() 
             : Response::deny('You must be an admin!');
         });
+
+        Gate::define('show-media', [MediaPolicy::class, 'show']);
     }
 }
