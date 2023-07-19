@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::before(function(User $user){
-            if (Auth::user()->email === 'ivan.mandic@predavaci.algebra.hr'){
+            if ($user->isAdmin()){
                 return true;
             }
         });
