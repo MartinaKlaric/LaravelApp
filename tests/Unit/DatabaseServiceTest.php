@@ -2,12 +2,15 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use App\Service\ConnectionService;
 use App\Service\DatabaseService;
+use PHPUnit\Framework\TestCase;
 
 class DatabaseServiceTest extends TestCase
 {
+    /**
+     * A basic unit test example.
+     */
     public function testGetGenresReturnsExpectedResult(): void
     {
         $connectionService = new ConnectionService();

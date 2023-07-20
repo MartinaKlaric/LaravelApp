@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testIsAdminReturnsExpectedResult(): void //test na početku naziva je obvezan
+    public function testIsAdminReturnsExpectedResult(): void
     {
         $user = new User();
-        $role = new Role();   
-        $role->name = 'Administrator'; 
-        $user->role = $role; //našem useru dodijelili smo ulogu administratora
+        $role = new Role();
+        $role->name = 'Administrator';
+        $user->role = $role;
 
         $this->assertTrue($user->isAdmin());
     }
