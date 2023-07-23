@@ -20,18 +20,27 @@ Route::view('/homepage', 'welcome', ['title' => 'Welcome Page'])
     ->name('home')
     ->withoutMiddleware('token');
 
+
 Route::resource('member', MemberController::class)
     ->except(['store', 'edit'])
     ->parameter('member', 'id');
+
+
 Route::get('/foo', function(){
     return [1, 2, 3];
 });
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
