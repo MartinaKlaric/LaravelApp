@@ -16,4 +16,5 @@ class Role extends Model
     protected $guarded = [];
 
     protected $hidden = ['deleted_at'];
+    
 }

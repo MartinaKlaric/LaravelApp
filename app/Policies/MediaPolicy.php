@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Http\Controllers\MediaController;
 
 class MediaPolicy
 {
