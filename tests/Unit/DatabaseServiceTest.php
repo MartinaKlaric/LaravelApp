@@ -8,9 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DatabaseServiceTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
+    
     public function testGetGenresReturnsExpectedResult(): void
     {
         $connectionService = new ConnectionService();
